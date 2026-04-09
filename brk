@@ -16,9 +16,11 @@ load_config() {
   if [ -f ".brk" ]; then
     local val
     val=$(grep -E '^base_branch=' .brk 2>/dev/null | head -1 | cut -d= -f2 | tr -d '[:space:]')
-    [ -n "$val" ] && BASE_BRANCH="$val"
+    if [ -n "$val" ]; then BASE_BRANCH="$val"; fi
   fi
-  [ -n "${BRK_BASE_BRANCH:-}" ] && BASE_BRANCH="$BRK_BASE_BRANCH"
+  if [ -n "${BRK_BASE_BRANCH:-}" ]; then
+    BASE_BRANCH="$BRK_BASE_BRANCH"
+  fi
 }
 
 # ── Helpers ─────────────────────────────────────────────────────────
